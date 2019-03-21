@@ -1,8 +1,0 @@
-config BR2_PACKAGE_PNGPHOON
-	bool "pngphoon"
-	select BR2_PACKAGE_LIBPNG
-	help
-	  Tool for creating a monochromatic image of the current phase
-	  of the moon.
-
-	  http://svolli.de/software/pngphoon/

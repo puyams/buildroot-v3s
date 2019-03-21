@@ -1,0 +1,7 @@
+BR2_arm=y
+BR2_cortex_a7=y
+BR2_ARM_FPU_VFPV4=y
+BR2_DL_DIR="/home/svolli/src/buildroot/dl"
+BR2_KERNEL_HEADERS_4_19=y
+BR2_LINUX_KERNEL=y
+BR2_LINUX_KERNEL_DEFCONFIG="sunxi"
