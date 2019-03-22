@@ -1,10 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
 readonly build_dir="output"
 readonly buildroot_dir="buildroot"
 readonly download_base="https://buildroot.org/downloads"
 readonly tarext="tar.bz2"
 buildroot_version="2019.02"
+
+set -e
+
+errmsg()
+{
+   echo -e "\nsomething went wrong!\ncheck error messages above\n"
+   exit 1
+}
+
+trap "errmsg" ERR
 
 cd "$(dirname "${0}")"
 
@@ -46,4 +56,6 @@ sed -i "${output_dir}/.config" \
     -e "s|^BR2_DL_DIR=.*|BR2_DL_DIR=\"${dl_dir}\"|"
 
 echo "all set, go to \"${output_dir#${PWD}/}\" and run \"make all\""
-dpkg --get-selections | grep -q ^libelf-dev || echo "you should install \"libelf-dev\""
+if [ -x "/usr/bin/dpkg" ]; then
+   dpkg --get-selections | grep -q ^libelf-dev || echo "you should install \"libelf-dev\""
+fi
