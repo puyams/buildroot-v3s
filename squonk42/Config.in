@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_SQUONK42_PATH/package/rtl8723bs_ext/Config.in"
