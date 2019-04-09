@@ -1,8 +1,0 @@
-#!/bin/sh
-
-grep : /proc/net/dev | cut -f1 -d: |while read dev; do
-case "${dev}" in
-lo|sit0) ;;
-*) udhcpc -i ${dev} & ;;
-esac
-done
