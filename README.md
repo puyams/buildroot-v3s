@@ -46,7 +46,7 @@ https://github.com/Squonk42/buildroot-licheepi-zero .
 | LCD (800x480)    | not working (most probably not enabled)                 |
 | camera           | not tested (no hardware)                                |
 
-## v3s licheepi_zero ## 
+## v3s licheepi_zero ##
 A try to get a configuration for a Lichee Pi Zero board adapeted just using
 mainline components
 
