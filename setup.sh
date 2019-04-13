@@ -4,7 +4,7 @@ readonly build_dir="output"
 readonly buildroot_dir="buildroot"
 readonly download_base="https://buildroot.org/downloads"
 readonly tarext="tar.bz2"
-buildroot_version="2019.02"
+buildroot_version="2019.02.1"
 
 set -e
 
@@ -19,9 +19,15 @@ trap "errmsg" ERR
 cd "$(dirname "${0}")"
 
 if [ -z "${1}" ]; then
-   echo "Usage: ${0} <relative_path_to_config>"
+   echo "Usage: ${0} <relative_path_to_config> (additional layer dirs)"
    echo "Available configs are:"
    ls -1 */configs/*_defconfig 2>/dev/null
+   echo "Additional layers are:"
+   ls -1 */Config.in | sed 's,/Config.in,,g' | tr '\n' ' ' | fold -s ; echo
+   dL_dir="$(grep -l '^BR2_DL_DIR=' */configs/*_defconfig || true)"
+   if [ -n "${dl_dir}" ]; then
+      xargs sed -i -e '/^BR2_DL_DIR=/d' ${dl_dir}
+   fi
    exit 0
 fi
 
@@ -29,6 +35,7 @@ dl_dir="${PWD}/dl"
 defconfig_full="${1}"
 defconfig="${defconfig_full##*/}"
 configname="${defconfig%_defconfig}"
+shift
 
 output_dir="${PWD}/${build_dir}/${configname}"
 layer_dir="${PWD}/${defconfig_full%/configs/*}"
@@ -50,6 +57,20 @@ if [ ! -d "${buildroot_dir}/buildroot-${buildroot_version}" ]; then
    cd "${oldpwd}"
 fi
 
+layer_dirs="${layer_dir}"
+for extra_layer; do
+   extra_layer="$(readlink -f "${extra_layer}")"
+   if [ ! -f "${extra_layer}/Config.in" -o \
+        ! -f "${extra_layer}/external.mk" -o \
+        ! -f "${extra_layer}/external.desc" ]; then
+      echo "can't add layer ${extra_layer}: core file(s) missing"
+      exit 1
+   else
+      layer_dirs="${layer_dirs}:${extra_layer}"
+   fi
+done
+
+sed -i -e '/^BR2_DL_DIR=/d' "${defconfig_full}"
 make O="${output_dir}" BR2_EXTERNAL="${layer_dir}" -C "${buildroot_dir}/buildroot-${buildroot_version}" "${defconfig}"
 # is there a better way than patching ".config"?
 sed -i "${output_dir}/.config" \
