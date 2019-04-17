@@ -24,9 +24,9 @@ if [ -z "${1}" ]; then
    ls -1 */configs/*_defconfig 2>/dev/null
    echo "Additional layers are:"
    ls -1 */Config.in | sed 's,/Config.in,,g' | tr '\n' ' ' | fold -s ; echo
-   dL_dir="$(grep -l '^BR2_DL_DIR=' */configs/*_defconfig || true)"
+   dl_dir="$(grep -l '^BR2_DL_DIR=' */configs/*_defconfig || true)"
    if [ -n "${dl_dir}" ]; then
-      xargs sed -i -e '/^BR2_DL_DIR=/d' ${dl_dir}
+      sed -i -e '/^BR2_DL_DIR=/d' ${dl_dir}
    fi
    exit 0
 fi

@@ -1,0 +1,10 @@
+config BR2_PACKAGE_MOST
+	bool "most"
+	depends on BR2_PACKAGE_SLANG
+	help
+	  most is a pager
+
+	  ftp://space.mit.edu/pub/davis/most/
+
+comment "most depends on slang"
+	depends on !BR2_PACKAGE_SLANG

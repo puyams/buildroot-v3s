@@ -1,7 +1,6 @@
 BR2_arm=y
 BR2_cortex_a7=y
 BR2_ARM_FPU_VFPV4=y
-BR2_DL_DIR="/home/svolli/src/buildroot-v3s/dl"
 BR2_TOOLCHAIN_EXTERNAL=y
 BR2_TARGET_GENERIC_HOSTNAME="licheepi-zero"
 BR2_TARGET_GENERIC_ISSUE="Welcome to Buildroot for the LicheePi Zero"

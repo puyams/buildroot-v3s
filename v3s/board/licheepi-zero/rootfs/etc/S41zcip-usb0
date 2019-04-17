@@ -1,4 +1,0 @@
-#!/bin/sh
-
-/sbin/ifconfig usb0 up
-exec /sbin/zcip -r 169.254.0.1 /usr/share/zcip/default.script
