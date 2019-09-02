@@ -1,9 +1,0 @@
-source "$BR2_EXTERNAL_V3S_PATH/package/most/Config.in"
-
-config BR2_PACKAGE_META_FAVORITES
-	bool "Select favorite packages"
-	select BR2_PACKAGE_DROPBEAR
-	select BR2_PACKAGE_SLANG
-	select BR2_PACKAGE_MOST
-	help
-	  The favorite package selection for a nice target environment.
