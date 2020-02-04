@@ -1,10 +1,17 @@
 #!/bin/bash
 
+# name of subdir to build in
 readonly build_dir="output"
+# name of subdir to download buildroot tarballs to
 readonly buildroot_dir="buildroot"
+# points to buildroot website
 readonly download_base="https://buildroot.org/downloads"
 readonly tarext="tar.bz2"
-buildroot_version="2019.02.1"
+buildroot_version="2019.02.8" # suggested value: latest lts
+
+# to aggregate more than one repo change this to "*/*" and copy
+# setup.sh to the directory containing all the layers
+readonly basedirs="*"
 
 set -e
 
@@ -21,10 +28,10 @@ cd "$(dirname "${0}")"
 if [ -z "${1}" ]; then
    echo "Usage: ${0} <relative_path_to_config> (additional layer dirs)"
    echo "Available configs are:"
-   ls -1 */configs/*_defconfig 2>/dev/null
+   ls -1 ${basedirs}/configs/*_defconfig 2>/dev/null | grep -v "^${buildroot_dir}/"
    echo "Additional layers are:"
-   ls -1 */Config.in | sed 's,/Config.in,,g' | tr '\n' ' ' | fold -s ; echo
-   dl_dir="$(grep -l '^BR2_DL_DIR=' */configs/*_defconfig || true)"
+   ls -1 ${basedirs}/Config.in | sed 's,/Config.in,,g' | tr '\n' ' ' | fold -s ; echo
+   dl_dir="$(grep -l '^BR2_DL_DIR=' ${basedirs}/configs/*_defconfig || true)"
    if [ -n "${dl_dir}" ]; then
       sed -i -e '/^BR2_DL_DIR=/d' ${dl_dir}
    fi
@@ -33,6 +40,7 @@ fi
 
 dl_dir="${PWD}/dl"
 defconfig_full="${1}"
+defconfig_dir="${defconfig_full%/*}"
 defconfig="${defconfig_full##*/}"
 configname="${defconfig%_defconfig}"
 shift
@@ -42,8 +50,13 @@ layer_dir="${PWD}/${defconfig_full%/configs/*}"
 
 if [ -f "${layer_dir}/buildroot.version" ]; then
    buildroot_version="$(cat "${layer_dir}/buildroot.version")"
-   buildroot_version="${buildroot_version#buildroot-}"
 fi
+
+if [ -f "${defconfig_dir}/${configname}.version" ]; then
+   buildroot_version="$(cat "${defconfig_dir}/${configname}.version")"
+fi
+
+buildroot_version="${buildroot_version#buildroot-}"
 
 [ -d "${buildroot_dir}" ] || mkdir "${buildroot_dir}"
 
