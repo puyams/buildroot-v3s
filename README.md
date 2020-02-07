@@ -1,7 +1,8 @@
 # buildroot-v3s #
 
 An external layer for buildroot to get Allwinner V3s based systems (like the
-LicheePi Zero) up and running.
+LicheePi Zero) up and running. It is loosely based upon the work of
+[squonk42](https://github.com/Squonk42/buildroot-licheepi-zero).
 
 Based upon the information of the
 [buildroot user manual](https://buildroot.org/downloads/manual/manual.html)
@@ -63,41 +64,3 @@ Later on a port to mainline kernel and U-Boot is planned.
 | LCD (800x480)    | working                                                 |
 | camera           | not configured                                          |
 | additional wifi  | working with external driver                            |
-
-# Configurations for squonk42 layer #
-
-This is a configuration for a Lichee Pi Zero board adapeted from
-https://github.com/Squonk42/buildroot-licheepi-zero . It is only included
-for documentation purposes and might be removed in the future.
-
-## Versions ##
-
-| Component | Version     | Comment                                          |
-| --------- | ----------- | ------------------------------------------------ |
-| Buildroot | 2018.05     |                                                  |
-| Linux     | zero-4.14.y | fork: https://github.com/Lichee-Pi/linux         |
-| U-Boot    | v3s-current | fork: https://github.com/Lichee-Pi/u-boot        |
-
-## Supported Hardware Status ##
-
-Hardware of Lichee Pi Zero as supported by Kernel branch "zero-4.14.y":
-
-| Hardware Feature | Status                                                  |
-| -----------------| ------------------------------------------------------- |
-| USB gadget       | working: serial (ttyGS0) + ethernet (usb0)              |
-| ethernet         | working                                                 |
-| MMC0             | working, boot media                                     |
-| MMC1             | working with uSD card, SDIO not tested                  |
-| MMC2             | not tested (same pins as SPI0)                          |
-| UART0            | not tested, ttyS0 shows up in dmesg                     |
-| UART1            | seems not to be configured                              |
-| UART2            | seems not to be configured                              |
-| SPI0             | not tested                                              |
-| I2C0             | not tested                                              |
-| I2C1             | not tested                                              |
-| 4 buttons        | working, show effect in /dev/input/event0               |
-| audio playback   | working                                                 |
-| audio recording  | not working (probably due to wrong mixer configuration) |
-| LCD (800x480)    | not working (most probably not enabled, wrong dtb)      |
-| camera           | not tested (no hardware)                                |
-
