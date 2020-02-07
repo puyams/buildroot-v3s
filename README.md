@@ -18,10 +18,57 @@ I bought my hardware here:
 * [with dock](https://www.banggood.com/LicheePi-Zero-1GHz-Cortex-A7-512Mbit-DDR-Development-Board-Mini-PC-p-1337966.html)
 * [800x480 LCD](https://www.banggood.com/Lichee-Pi-5-inch-LCD-Display-RTP-800480-Resolution-With-4-wire-Resistive-Touch-Screen-p-1340806.html)
 
+# Configurations for v3s layer #
+
+A try to get a configuration for a Lichee Pi Zero board adapeted just using
+mainline components. The configs are split up into different variants,
+including the dock and a 800x480 LCD.
+
+| Defconfig                               | Status                           |
+| --------------------------------------- | -------------------------------- |
+| licheepi_zero_dock_lcd_defconfig        | working                          |
+| licheepi_zero_defconfig                 | untested                         |
+| licheepi_zero_dock_defconfig            | working as squonk42 layer        |
+| licheepi_zero_lcd800x480_defconfig      | untested                         |
+| licheepi_zero_dock_lcd800x480_defconfig | not booting due to broken dtb    |
+
+## Versions ##
+
+| Component | Version     | Comment                                          |
+| --------- | ----------- | ------------------------------------------------ |
+| Buildroot | 2019.02.1   |                                                  |
+| Linux     | zero-4.14.y | fork: https://github.com/Lichee-Pi/linux         |
+| U-Boot    | v3s-current | fork: https://github.com/Lichee-Pi/u-boot        |
+
+Later on a port to mainline kernel and U-Boot is planned.
+
+## Supported Hardware Status ##
+
+| Hardware Feature | Status                                                  |
+| -----------------| ------------------------------------------------------- |
+| USB gadget       | working: serial (ttyGS0) + ethernet (usb0)              |
+| ethernet         | working                                                 |
+| MMC0             | working                                                 |
+| MMC1             | working                                                 |
+| MMC2             | not tested (same pins as SPI0)                          |
+| UART0            | working                                                 |
+| UART1            | not configured                                          |
+| UART2            | not configured                                          |
+| SPI              | not tested                                              |
+| I2C0             | not tested                                              |
+| I2C1             | not tested                                              |
+| 4 buttons        | working, show effect in /dev/input/event0               |
+| audio playback   | audio device available, not tested                      |
+| audio recording  | audio device available, not tested                      |
+| LCD (800x480)    | working                                                 |
+| camera           | not configured                                          |
+| additional wifi  | working with external driver                            |
+
 # Configurations for squonk42 layer #
 
 This is a configuration for a Lichee Pi Zero board adapeted from
-https://github.com/Squonk42/buildroot-licheepi-zero .
+https://github.com/Squonk42/buildroot-licheepi-zero . It is only included
+for documentation purposes and might be removed in the future.
 
 ## Versions ##
 
@@ -54,47 +101,3 @@ Hardware of Lichee Pi Zero as supported by Kernel branch "zero-4.14.y":
 | LCD (800x480)    | not working (most probably not enabled, wrong dtb)      |
 | camera           | not tested (no hardware)                                |
 
-# Configurations for v3s layer #
-
-A try to get a configuration for a Lichee Pi Zero board adapeted just using
-mainline components. The configs are split up into different variants,
-including the dock and a 800x480 LCD.
-
-| Defconfig                               | Status                           |
-| --------------------------------------- | -------------------------------- |
-| licheepi_zero_defconfig                 | untested                         |
-| licheepi_zero_dock_defconfig            | working as squonk42 layer        |
-| licheepi_zero_lcd800x480_defconfig      | untested                         |
-| licheepi_zero_dock_lcd800x480_defconfig | not booting due to broken dtb    |
-
-## Versions ##
-
-| Component | Version     | Comment                                          |
-| --------- | ----------- | ------------------------------------------------ |
-| Buildroot | 2019.02.1   |                                                  |
-| Linux     | zero-4.14.y | fork: https://github.com/Lichee-Pi/linux         |
-| U-Boot    | v3s-current | fork: https://github.com/Lichee-Pi/u-boot        |
-
-Later on a port to mainline kernel and U-Boot is planned.
-
-## Supported Hardware Status ##
-
-Since this work in progress at an early stage, so no status yet
-
-| Hardware Feature | Status                                                  |
-| -----------------| ------------------------------------------------------- |
-| USB gadget       |                                                         |
-| ethernet         |                                                         |
-| MMC0             |                                                         |
-| MMC1             |                                                         |
-| MMC2             |                                                         |
-| UART0            |                                                         |
-| UART1            |                                                         |
-| UART2            |                                                         |
-| SPI              |                                                         |
-| I2C0             |                                                         |
-| I2C1             |                                                         |
-| audio playback   |                                                         |
-| audio recording  |                                                         |
-| LCD (800x480)    |                                                         |
-| camera           |                                                         |
