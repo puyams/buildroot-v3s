@@ -18,6 +18,7 @@ I bought my hardware here:
 * [without dock](https://www.banggood.com/Lichee-Pi-Zero-1_2GHz-Cortex-A7-512Mbit-DDR-Core-Board-Development-Board-Mini-PC-p-1351124.html)
 * [with dock](https://www.banggood.com/LicheePi-Zero-1GHz-Cortex-A7-512Mbit-DDR-Development-Board-Mini-PC-p-1337966.html)
 * [800x480 LCD](https://www.banggood.com/Lichee-Pi-5-inch-LCD-Display-RTP-800480-Resolution-With-4-wire-Resistive-Touch-Screen-p-1340806.html)
+* [bundle (including wifi)](http://www.aliexpress.com/item/4000079405909.html)
 
 # Configurations for v3s layer #
 
@@ -37,7 +38,7 @@ including the dock and a 800x480 LCD.
 
 | Component | Version     | Comment                                          |
 | --------- | ----------- | ------------------------------------------------ |
-| Buildroot | 2019.02.1   |                                                  |
+| Buildroot | 2019.11.1   | (upgraded asap to 2020.02 LTS)                   |
 | Linux     | zero-4.14.y | fork: https://github.com/Lichee-Pi/linux         |
 | U-Boot    | v3s-current | fork: https://github.com/Lichee-Pi/u-boot        |
 
@@ -50,16 +51,16 @@ Later on a port to mainline kernel and U-Boot is planned.
 | USB gadget       | working: serial (ttyGS0) + ethernet (usb0)              |
 | ethernet         | working                                                 |
 | MMC0             | working                                                 |
-| MMC1             | working                                                 |
+| MMC1             | working, tested with microSD and SDIO-wifi              |
 | MMC2             | not tested (same pins as SPI0)                          |
 | UART0            | working                                                 |
-| UART1            | not configured                                          |
-| UART2            | not configured                                          |
-| SPI              | not tested                                              |
-| I2C0             | not tested                                              |
-| I2C1             | not tested                                              |
-| 4 buttons        | working, show effect in /dev/input/event0               |
-| audio playback   | audio device available, not tested                      |
+| UART1            | does not seem to be available                           |
+| UART2            | does not seem to be available                           |
+| SPI0             | untested, should be available                           |
+| I2C0             | working (used by LCD touchscreen controller)            |
+| I2C1             | does not seem to be available                           |
+| LRDAC 4 buttons  | working, show effect in /dev/input/event0               |
+| audio playback   | working                                                 |
 | audio recording  | audio device available, not tested                      |
 | LCD (800x480)    | working                                                 |
 | camera           | not configured                                          |
