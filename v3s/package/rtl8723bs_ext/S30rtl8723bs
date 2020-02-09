@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Start the network....
+#
+
+case "$1" in
+  start)
+	printf "Loading rtl8723bs module: "
+	modprobe r8723bs
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+	;;
+  stop)
+	printf "Unloading rtl8723bs module: "
+	rmmod r8723bs
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+
