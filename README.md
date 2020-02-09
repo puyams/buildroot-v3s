@@ -64,4 +64,4 @@ Later on a port to mainline kernel and U-Boot is planned.
 | audio recording  | audio device available, not tested                      |
 | LCD (800x480)    | working                                                 |
 | camera           | not configured                                          |
-| additional wifi  | working with external driver                            |
+| additional wifi  | working with external rtl8723_bs driver for sdio        |

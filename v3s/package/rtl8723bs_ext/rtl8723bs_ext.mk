@@ -4,16 +4,13 @@
 #
 ################################################################################
 
-#RTL8723BS_EXT_NEEDS_SOURCES=$(shell read -r MAJ MIN \
-#	<<< $$(echo "$(BR2_LINUX_KERNEL_VERSION)" | \
-#	sed -nr 's/[^0-9]*([0-9]+)\.([0-9]+).*/\1 \2/p') && \
-#	[ "0$$MAJ" -lt 4 -o "0$$MAJ" -eq 4 -a "0$$MIN" -lt 12 ] && echo 1 ||echo 0)
-RTL8723BS_EXT_NEEDS_SOURCES=0
-ifeq ($(RTL8723BS_EXT_NEEDS_SOURCES),1)
+ifeq ($(BR2_PACKAGE_RTL8723BS_EXT_NEEDS_SOURCES),y)
 RTL8723BS_EXT_VERSION = 11ab92d8ccd71c80f0102828366b14ef6b676fb2
 else
 RTL8723BS_EXT_VERSION = cc77e7b6092c54500058cd027b679421b9399905
 endif
+
+warn(RTL8723BS_EXT_VERSION=$(BR2_LINUX_KERNEL_VERSION))
 
 RTL8723BS_EXT_SITE = $(call github,hadess,rtl8723bs,$(RTL8723BS_EXT_VERSION))
 RTL8723BS_EXT_LICENSE = GPL-2.0, proprietary (*.bin firmware blobs)
@@ -27,7 +24,7 @@ RTL8723BS_EXT_BINS = rtl8723bs_ap_wowlan.bin rtl8723bs_wowlan.bin \
 	rtl8723bs_bt.bin rtl8723bs_nic.bin
 
 define RTL8723BS_EXT_CONDITIONAL_PATCH
-	if [ $(RTL8723BS_EXT_NEEDS_SOURCES) -eq 1 ]; then \
+	if [ "$(BR2_PACKAGE_RTL8723BS_EXT_NEEDS_SOURCES)" = "y" ]; then \
 		$(APPLY_PATCHES) $(@D) $(BR2_EXTERNAL_V3S_PATH)/package/rtl8723bs_ext 0001-rtl8723bs-add-debug-level-modparam.patch.conditional; \
 	fi;
 endef
