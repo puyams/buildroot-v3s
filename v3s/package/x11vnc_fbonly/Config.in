@@ -1,0 +1,10 @@
+config BR2_PACKAGE_X11VNC_FBONLY
+	bool "x11vnc (framebuffer only)"
+	depends on BR2_USE_MMU # fork()
+	depends on !BR2_nios2 # libvncserver
+	select BR2_PACKAGE_LIBVNCSERVER
+	select BR2_PACKAGE_ZLIB
+	help
+	  VNC server for X11 display, in configuration for raw display only
+
+	  http://www.karlrunge.com/x11vnc/
