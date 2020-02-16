@@ -1,0 +1,18 @@
+config BR2_PACKAGE_RTL8723BS_BT
+	bool "rtl8723bs bluetooth"
+	depends on BR2_LINUX_KERNEL
+	help
+	  rtl8723bs bluetooth driver and firmware
+
+	  https://github.com/bmericc/rtl8723bs_bt
+
+if BR2_PACKAGE_RTL8723BS_BT
+config BR2_PACKAGE_RTL8723BS_BT_NEW_FIRMWARE
+	bool "Install new firmware"
+	help
+	  There are two different firmwares available. Use this option to
+	  select the newer one.
+endif
+
+comment "rtl8723bs_bt needs a Linux kernel to be built"
+	depends on !BR2_LINUX_KERNEL

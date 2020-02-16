@@ -1,5 +1,5 @@
 config BR2_PACKAGE_RTL8723BS_EXT
-	bool "rtl8723bs"
+	bool "rtl8723bs wifi"
 	depends on BR2_LINUX_KERNEL
 	help
 	  rtl8723bs wifi driver
