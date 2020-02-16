@@ -1,0 +1,13 @@
+diff --git a/drivers/bluetooth/Kconfig b/drivers/bluetooth/Kconfig
+index aae665a3a..c74dd5830 100644
+--- a/drivers/bluetooth/Kconfig
++++ b/drivers/bluetooth/Kconfig
+@@ -211,7 +211,7 @@ config BT_HCIUART_RTL
+ 	depends on BT_HCIUART
+ 	depends on BT_HCIUART_SERDEV
+ 	depends on GPIOLIB
+-	depends on ACPI
++	depends on ACPI || ARM
+ 	select BT_HCIUART_3WIRE
+ 	select BT_RTL
+ 	help
